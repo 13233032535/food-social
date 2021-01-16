@@ -31,6 +31,12 @@ spring:
             - Path=/seckill/**
           filters:
             - StripPrefix=1
+        - id: ms-follow
+          uri: lb://ms-follow
+          predicates:
+            - Path=/follow/**
+          filters:
+            - StripPrefix=1
 secure:
   ignore:
     urls: # 配置白名单路径

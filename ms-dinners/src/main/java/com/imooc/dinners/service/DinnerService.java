@@ -7,7 +7,9 @@ import com.imooc.commons.utils.AssertUtil;
 import com.imooc.commons.utils.ResultInfoUtil;
 import com.imooc.dinners.config.OAuth2ClientConfiguration;
 import com.imooc.dinners.domain.OauthDinnerInfo;
+import com.imooc.dinners.mapper.DinnersMapper;
 import com.imooc.dinners.vo.LoginDinnerInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.http.client.support.BasicAuthenticationInterceptor;
@@ -15,9 +17,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
+import vo.ShortDinerInfo;
 
 import javax.annotation.Resource;
 import java.util.LinkedHashMap;
+import java.util.List;
 
 /**
  * 食客服务业务逻辑层
@@ -35,6 +39,23 @@ public class DinnerService {
 
     @Resource
     private OAuth2ClientConfiguration oAuth2ClientConfiguration;
+
+    @Autowired
+    private DinnersMapper dinnersMapper;
+
+    /**
+     * 根据 ids 查询食客信息
+     *
+     * @param ids 主键 id，多个以逗号分隔，逗号之间不用空格
+     * @return
+     */
+    public List<ShortDinerInfo> findByIds(String ids) {
+        AssertUtil.isNotEmpty(ids);
+        String[] idArr = ids.split(",");
+        List<ShortDinerInfo> dinerInfos = dinnersMapper.findByIds(idArr);
+        return dinerInfos;
+    }
+
 
     public ResultInfo signIn(String account, String password, String path) {
         AssertUtil.isNotEmpty("请输入账号....", account);

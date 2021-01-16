@@ -1,9 +1,9 @@
 server:
-  port: 8085 # 端口
+  port: 8084 # 端口
 
 spring:
   application:
-    name: ms-feeds # 应用名
+    name: ms-follow # 应用名
   # 数据库
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
@@ -19,7 +19,7 @@ spring:
     database: 2
   # Swagger
   swagger:
-    base-package: com.imooc.feeds
+    base-package: com.imooc.follow
     title: 慕课美食社交食客API接口文档
 
 # 配置 Eureka Server 注册中心
@@ -34,8 +34,7 @@ eureka:
 service:
   name:
     ms-oauth-server: http://ms-oauth2-server/
-    ms-diners-server: http://ms-dinners/
-    ms-follow-server: http://ms-follow/
+    ms-dinners-server: http://ms-dinners/
 
 mybatis:
   configuration:
